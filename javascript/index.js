@@ -53,6 +53,9 @@ const divisas = [
 //     document.getElementById("cantidadUsos").innerHTML = usos;
 // }
 
+let boton = document.getElementById("convertir");
+boton.onclick = () => convertir();
+
 function convertir() {
     let divisaFrom = document.getElementById("divisaFrom").value.toLowerCase();
     let valueFrom = document.getElementById("from").value;
