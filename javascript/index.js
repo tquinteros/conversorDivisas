@@ -60,26 +60,33 @@ function convertir() {
     let divisaFrom = document.getElementById("divisaFrom").value.toLowerCase();
     let valueFrom = document.getElementById("from").value;
     var valor;
-    if (divisaFrom == "dolar") {
-        const found = divisas.find(element => element = 'dolar');
-        valor = valueFrom * found.value;
-        document.getElementById("to").value = valor;
-        usos++
-    }
-    else if (divisaFrom == "euro") {
-        const found = divisas.find(element => element = 'euro');
-        valor = valueFrom * 316;
-        document.getElementById("to").value = valor;
-        usos++
-    }
-    else if (divisaFrom == "real") {
-        const found = divisas.find(element => element = 'real');
-        valor = valueFrom * 65;
-        document.getElementById("to").value = valor;
-        usos++
+
+    if (valueFrom < 0) {
+        alert("Ingrese número mayor a 0");
     }
     else {
-        alert("Ingrese divisa válida");
+        if (divisaFrom == "dolar") {
+            const found = divisas.find(element => element = 'dolar');
+            valor = valueFrom * found.value;
+            document.getElementById("to").value = valor;
+            usos++
+        }
+        else if (divisaFrom == "euro") {
+            const found = divisas.find(element => element = 'euro');
+            valor = valueFrom * 316;
+            document.getElementById("to").value = valor;
+            usos++
+        }
+        else if (divisaFrom == "real") {
+            const found = divisas.find(element => element = 'real');
+            valor = valueFrom * 65;
+            document.getElementById("to").value = valor;
+            usos++
+        }
+        else {
+            alert("Ingrese divisa válida");
+        }
+
     }
     if (usos == 1) {
         document.getElementById("times").innerHTML = "vez";
