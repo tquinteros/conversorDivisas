@@ -67,10 +67,15 @@ criptos.forEach(element => {
 });
 
 
-let botonCripto = document.getElementById("convertirCripto");
-botonCripto.onclick = () => convertirCripto();
-let botonDivisa = document.getElementById("convertirDivisa")
-botonDivisa.onclick = () => convertirDivisa()
+// let botonCripto = document.getElementById("convertirCripto");
+// botonCripto.onclick = () => convertirCripto();
+// let botonDivisa = document.getElementById("convertirDivisa")
+// botonDivisa.onclick = () => convertirDivisa()
+
+let divisaFrom = document.getElementById("fromDivisa");
+divisaFrom.onkeyup = () => convertirDivisa();
+let divisaFromCripto = document.getElementById("fromCripto");
+divisaFromCripto.onkeyup = () => convertirCripto();
 
 function convertirCripto() {
     let divisaFromCripto = document.getElementById("selectCriptos").value;
