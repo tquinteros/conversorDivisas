@@ -32,7 +32,7 @@ divisas.forEach(element => {
 });
 
 // Guardar Array de Divisas
-const guardarDivisa = (nombre, precio) => {(localStorage.setItem(nombre, precio))};
+const guardarDivisa = (nombre, precio) => { (localStorage.setItem(nombre, precio)) };
 guardarDivisa("listaDivisas", JSON.stringify(divisas));
 
 const criptos = [
@@ -55,7 +55,7 @@ const criptos = [
 ]
 
 // Guardar Array de Criptos
-const guardarCriptos = (nombre, precio) => {(localStorage.setItem(nombre, precio))};
+const guardarCriptos = (nombre, precio) => { (localStorage.setItem(nombre, precio)) };
 guardarCriptos("listaCriptos", JSON.stringify(criptos));
 
 let selectCripto = document.getElementById("selectCriptos")
@@ -90,7 +90,7 @@ function convertirDivisa() {
     let valueFrom = document.getElementById("fromDivisa").value;
     let found = divisas.find(({ name }) => name.toLowerCase() == divisaFrom);
     valor = valueFrom * found.price;
-    document.getElementById("toDivisa").value = valor;
+    document.getElementById("toDivisa").value = valor.toFixed([2]);
 }
 
 
@@ -103,3 +103,16 @@ function clearInputCriptos() {
     document.getElementById("fromCripto").value = "";
     document.getElementById("toCripto").value = "";
 }
+
+// Librería Luxor
+function updateTime() {
+
+    const showtime = document.getElementById("times");
+
+    const timenow = luxon.DateTime.now();
+    showtime.innerHTML = timenow.toFormat("HH:mm:ss");
+}
+
+setInterval(function () {
+    updateTime()
+}, 1000)

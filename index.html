@@ -13,7 +13,7 @@
 
 <body class="gradientColor">
 
-    <header class="border">
+    <!-- <header class="border">
         <nav class="navbar navbar-dark navbar-expand-lg">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
@@ -47,9 +47,15 @@
                 </div>
             </div>
         </nav>
-    </header>
+    </header> -->
 
     <main>
+
+        <div class="container-fluid text-center timezone">
+            <h2 class="text-white mt-2">Hora actual Argentina</h2>
+            <span id="times" class="time text-white"></span>
+        </div>
+
         <div class="container d-flex justify-content-center align-items-center mt-3">
             <button class="button-63 m-3" onclick="aparecerDivisas()">Divisas</button>
             <button class="button-63 m-3" onclick="aparecerCripto()">Criptomoneda</button>
@@ -72,7 +78,7 @@
                         <p class="mb-1 mx-auto">Cantidad:</p>
                     </div>
                     <div class="input-group mb-3">
-                        <select name="" id="selectDivisa" onchange="clearInputDivisas()"></select>
+                        <select name="" id="selectDivisa" onchange="convertirDivisa()"></select>
                         <input type="number" class="form-control text-center w-75" id="fromDivisa" aria-label="">
                     </div>
                 </div>
@@ -81,21 +87,12 @@
                         <p class="mb-1 mx-auto">Cantidad en pesos argentinos:</p>
                     </div>
                     <div class="input-group mb-3">
-                        <!-- <select name="" id="selectDivisa">
-                            <option value="dolar">Dólar</option>
-                            <option value="euro">Euro</option>
-                            <option value="real">Real</option>
-                        </select> -->
                         <input class="form-control text-center w-100" type="number" id="toDivisa"
                             value="Disabled readonly input" disabled readonly>
                     </div>
                 </div>
             </div>
 
-            <!-- <div class="container d-flex justify-content-center align-items-center">
-                <button type="button" class="border-3 btn btn-light m-4 borderConvertir"
-                    id="convertirDivisa">Convertir</button>
-            </div> -->
         </div>
 
 
@@ -126,7 +123,7 @@
                         <p class="mb-1 mx-auto">Cantidad:</p>
                     </div>
                     <div class="input-group mb-3">
-                        <select name="" id="selectCriptos" onchange="clearInputCriptos()">
+                        <select name="" id="selectCriptos" onchange="convertirCripto()">
                         </select>
                         <input type="number" class="form-control text-center w-75" id="fromCripto" aria-label="">
                     </div>
@@ -136,23 +133,13 @@
                         <p class="mb-1 mx-auto">Cantidad en dólares:</p>
                     </div>
                     <div class="input-group mb-3">
-                        <!-- <select name="" id="">
-                            <option value=""></option>
-                            <option value=""></option>
-                            <option value=""></option>
-                            <option value=""></option>
-                        </select> -->
                         <input class="form-control text-center w-100" type="number" id="toCripto"
                             value="Disabled readonly input" disabled readonly>
                     </div>
                 </div>
             </div>
-
-            <!-- <div class="container d-flex justify-content-center align-items-center">
-                <button type="button" class="border-3 btn btn-light m-4 borderConvertir"
-                    id="convertirCripto">Convertir Cripto</button>
-            </div> -->
         </div>
+
 
     </main>
 
@@ -164,7 +151,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
         crossorigin="anonymous"></script>
-    <script src="app.js"></script>i
+    <script src="https://moment.github.io/luxon/global/luxon.min.js"></script>
+    <script src="luxon.js"></script>
+    <script src="app.js"></script>
 </body>
 
 
