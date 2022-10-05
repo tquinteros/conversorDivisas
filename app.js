@@ -1,108 +1,41 @@
-function aparecerCripto() {
-    document.getElementById("divCripto").style.display = "block";
-    document.getElementById("divDivisa").style.display = "none";
-}
-
-function aparecerDivisas() {
-    document.getElementById("divCripto").style.display = "none";
-    document.getElementById("divDivisa").style.display = "block";
-}
-const divisas = [
-    {
-        name: "Dolar",
-        price: 300,
-    },
-    {
-        name: "Euro",
-        price: 316,
-    },
-    {
-        name: "Real",
-        price: 65,
-    },
-
-]
-
-let selectDivisa = document.getElementById("selectDivisa");
-divisas.forEach(element => {
-    let option = document.createElement("option");
-    option.value = element.name.toLowerCase();
-    option.text = element.name;
-    selectDivisa.appendChild(option);
-});
-
-// Guardar Array de Divisas
-const guardarDivisa = (nombre, precio) => { (localStorage.setItem(nombre, precio)) };
-guardarDivisa("listaDivisas", JSON.stringify(divisas));
-
-const criptos = [
-    {
-        name: "Bitcoin",
-        price: 20000,
-    },
-    {
-        name: "Ethereum",
-        price: 1500,
-    },
-    {
-        name: "BNB",
-        price: 265,
-    },
-    {
-        name: "XRP",
-        price: 0.04,
-    },
-]
-
-// Guardar Array de Criptos
-const guardarCriptos = (nombre, precio) => { (localStorage.setItem(nombre, precio)) };
-guardarCriptos("listaCriptos", JSON.stringify(criptos));
-
-let selectCripto = document.getElementById("selectCriptos")
-criptos.forEach(element => {
-    let option = document.createElement("option");
-    option.value = element.name.toLowerCase();
-    option.text = element.name;
-    selectCripto.appendChild(option);
-});
-
-
-// let botonCripto = document.getElementById("convertirCripto");
-// botonCripto.onclick = () => convertirCripto();
-// let botonDivisa = document.getElementById("convertirDivisa")
-// botonDivisa.onclick = () => convertirDivisa()
-
-let divisaFrom = document.getElementById("fromDivisa");
-divisaFrom.onkeyup = () => convertirDivisa();
-let divisaFromCripto = document.getElementById("fromCripto");
-divisaFromCripto.onkeyup = () => convertirCripto();
-
-function convertirCripto() {
-    let divisaFromCripto = document.getElementById("selectCriptos").value;
-    let valueFromCripto = document.getElementById("fromCripto").value;
-    let found = criptos.find(({ name }) => name.toLowerCase() == divisaFromCripto);
-    valor = valueFromCripto * found.price;
-    document.getElementById("toCripto").value = valor;
-}
-
-function convertirDivisa() {
-    let divisaFrom = document.getElementById("selectDivisa").value;
-    let valueFrom = document.getElementById("fromDivisa").value;
-    let found = divisas.find(({ name }) => name.toLowerCase() == divisaFrom);
-    valor = valueFrom * found.price;
-    document.getElementById("toDivisa").value = valor.toFixed([2]);
-}
-
-
-function clearInputDivisas() {
-    document.getElementById("fromDivisa").value = "";
-    document.getElementById("toDivisa").value = "";
-}
+const divCriptos = document.getElementById("divCriptos");
+const mainDiv = document.createElement("div");
+mainDiv.innerHTML = `
+    <h2 class="text-center m-2 fw-bolder text-decoration-underline">Conversor de Divisas de Cripto</h2>
+    <p class=" text-center m-2 mt-3">Conversor de Divisas.</p>
+    </div>
+    <div class="row">
+    <div class="col-md-6">
+        <div class="container d-flex">
+            <p class="mb-1">Divisa:</p>
+            <p class="mb-1 mx-auto">Cantidad:</p>
+        </div>
+        <div class="input-group mb-3">
+            <select name="" id="selectCriptos" onchange="convertirCripto()">
+            </select>
+            <input type="number" class="form-control text-center w-50" id="fromCripto" aria-label="">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="container d-flex">
+            <p class="mb-1 mx-auto">Cantidad en dólares:</p>
+        </div>
+        <div class="input-group mb-3">
+            <input class="form-control text-center w-100" type="number" id="toCripto"
+                value="Disabled readonly input" disabled readonly>
+        </div>
+    </div>
+    `
+divCriptos.appendChild(mainDiv)
 
 function clearInputCriptos() {
     document.getElementById("fromCripto").value = "";
     document.getElementById("toCripto").value = "";
 }
+
+let selectCripto = document.getElementById("selectCriptos");
+selectCripto.onchange = () => clearInputCriptos();
+
 
 // Librería Luxor
 function updateTime() {
@@ -116,3 +49,36 @@ function updateTime() {
 setInterval(function () {
     updateTime()
 }, 1000)
+
+const criptoList = document.getElementById("criptoList")
+
+fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false')
+    .then((resp) => resp.json())
+    .then((data) => {
+        data.forEach((post) => {
+            const tr = document.createElement("tr")
+            tr.innerHTML = `
+            <td class="text-capitalize fw-semibold"><img src="${post.image}" class="img-fluid" width="30"> ${post.id} <span class="text-uppercase text-muted">${post.symbol}</span></td>
+            <td class="">${post.current_price} US$</td>
+            <td class="">${post.ath} US$</td>
+        `
+            criptoList.append(tr)
+
+            let option = document.createElement("option");
+            option.classList.add("text-capitalize");
+            option.value = post.current_price;
+            option.text = post.id;
+            selectCripto.appendChild(option);
+            function convertirCripto() {
+                let divisaFromCripto = document.getElementById("selectCriptos").value;
+                let valueFromCripto = document.getElementById("fromCripto").value;
+                let valor;
+                valor = valueFromCripto * divisaFromCripto;
+                document.getElementById("toCripto").value = valor;
+            }
+            let divisaFromCripto = document.getElementById("fromCripto");
+            divisaFromCripto.onkeyup = () => convertirCripto();
+            const guardarCriptos = (id, current_price) => { (localStorage.setItem(id, current_price)) };
+            guardarCriptos("listaCriptos", JSON.stringify(data));
+        });
+    })
