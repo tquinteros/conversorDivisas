@@ -2,7 +2,7 @@ const divCriptos = document.getElementById("divCriptos");
 const mainDiv = document.createElement("div");
 mainDiv.innerHTML = `
     <h2 class="text-center m-2 fw-bolder text-decoration-underline">Conversor de Divisas de Cripto</h2>
-    <p class=" text-center m-2 mt-3">Conversor de Divisas.</p>
+    <p class=" text-center m-2 mt-3">Conversor de Divisas (El <b>valor de las cripto</b> no está actualizado al momento exacto ya que <b>la API gratuita de Coingecko no actualiza cada segundo</b>).</p>
     </div>
     <div class="row">
     <div class="col-md-6">
@@ -46,21 +46,25 @@ function updateTime() {
     showtime.innerHTML = timenow.toFormat("HH:mm:ss");
 }
 
+window.onload = function () {
+    updateTime()
+}
+
 setInterval(function () {
     updateTime()
 }, 1000)
 
 const criptoList = document.getElementById("criptoList")
-
+// API Coingecko
 fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false')
     .then((resp) => resp.json())
     .then((data) => {
         data.forEach((post) => {
             const tr = document.createElement("tr")
             tr.innerHTML = `
-            <td class="text-capitalize fw-semibold"><img src="${post.image}" class="img-fluid" width="30"> ${post.id} <span class="text-uppercase text-muted">${post.symbol}</span></td>
+            <td class="text-capitalize fw-semibold rounded-start"><img src="${post.image}" class="img-fluid" width="30"> ${post.id} <span class="text-uppercase text-muted">${post.symbol}</span></td>
             <td class="">${post.current_price} US$</td>
-            <td class="">${post.ath} US$</td>
+            <td class="rounded-end">${post.ath} US$</td>
         `
             criptoList.append(tr)
 
@@ -74,7 +78,11 @@ fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=mark
                 let valueFromCripto = document.getElementById("fromCripto").value;
                 let valor;
                 valor = valueFromCripto * divisaFromCripto;
-                document.getElementById("toCripto").value = valor;
+                document.getElementById("toCripto").value = valor.toFixed(2);
+                if (valueFromCripto < 0) {
+                    alert("Ingrese valor mayor a 0");
+                    clearInputCriptos();
+                }
             }
             let divisaFromCripto = document.getElementById("fromCripto");
             divisaFromCripto.onkeyup = () => convertirCripto();
