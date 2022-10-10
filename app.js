@@ -86,6 +86,7 @@ fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=mark
             }
             let divisaFromCripto = document.getElementById("fromCripto");
             divisaFromCripto.onkeyup = () => convertirCripto();
+            divisaFromCripto.onchange = () => convertirCripto();
             const guardarCriptos = (id, current_price) => { (localStorage.setItem(id, current_price)) };
             guardarCriptos("listaCriptos", JSON.stringify(data));
         });
