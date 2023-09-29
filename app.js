@@ -1,14 +1,14 @@
 const divCriptos = document.getElementById("divCriptos");
 const mainDiv = document.createElement("div");
 mainDiv.innerHTML = `
-    <h2 class="text-center m-2 fw-bolder text-decoration-underline">Conversor de Divisas de Cripto</h2>
-    <p class=" text-center m-2 mt-3">Conversor de Divisas (El <b>valor de las cripto</b> no está actualizado al momento exacto ya que <b>la API gratuita de Coingecko no actualiza cada segundo</b>).</p>
+    <h2 class="text-center m-2 fw-bolder text-decoration-underline">Crypto Currency Converter</h2>
+    <p class=" text-center m-2 mt-3">Currency Converter (The <b>value of cryptocurrencies</b> is not updated at the exact moment since <b>Coingecko's free API does not update every second</b>).</p>
     </div>
     <div class="row">
     <div class="col-md-6">
         <div class="container d-flex">
-            <p class="mb-1">Divisa:</p>
-            <p class="mb-1 mx-auto">Cantidad:</p>
+            <p class="mb-1">Currency:</p>
+            <p class="mb-1 mx-auto">Amount:</p>
         </div>
         <div class="input-group mb-3">
             <select name="" id="selectCriptos" onchange="convertirCripto()">
@@ -18,7 +18,7 @@ mainDiv.innerHTML = `
     </div>
     <div class="col-md-6">
         <div class="container d-flex">
-            <p class="mb-1 mx-auto">Cantidad en dólares:</p>
+            <p class="mb-1 mx-auto">Amount in USD:</p>
         </div>
         <div class="input-group mb-3">
             <input class="form-control text-center w-100" type="number" id="toCripto"
